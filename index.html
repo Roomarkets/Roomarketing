@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RooMarketing — Agence Marketing Numérique | Digital Marketing Agency</title>
+<meta name="description" content="RooMarketing — Marketing strategy, social media management, Meta & Google Ads. Montreal · Toronto · Paris · NYC.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+    --white:#fff;--cream:#faf9f7;--sand:#f2f0ec;--warm:#e9e6e0;
+    --black:#111;--charcoal:#333;--grey:#777;--light:#aaa;--faint:#d5d3cf;
+    --red:#d63031;--coral:#e55039;--green:#00b894;
+    --r:12px;--rl:18px;
+    --sans:'Manrope',system-ui,sans-serif;
+    --serif:'DM Serif Display',Georgia,serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:var(--sans);background:var(--white);color:var(--grey);line-height:1.7;overflow-x:hidden}
+::selection{background:var(--red);color:#fff}
+[data-l="en"]{display:none}
+
+/* === TOP BAR === */
+.topbar{background:var(--black);color:rgba(255,255,255,.7);text-align:center;padding:.6rem 1rem;font-size:.72rem;font-weight:500;letter-spacing:.2px}
+.topbar strong{color:#fff}.topbar a{color:var(--coral);text-decoration:none;font-weight:700;margin-left:.4rem}.topbar a:hover{text-decoration:underline}
+
+/* === NAV === */
+header{position:fixed;top:0;width:100%;z-index:100;transition:all .4s}
+header.has-topbar{top:32px}
+header.scrolled{top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(16px);box-shadow:0 1px 0 var(--faint)}
+header nav{max-width:1200px;margin:0 auto;padding:.85rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:var(--sans);font-weight:800;font-size:1.3rem;color:var(--black);text-decoration:none;letter-spacing:-.5px}
+.logo b{color:var(--red)}
+.nav-mid{display:flex;gap:2rem;list-style:none}
+.nav-mid a{color:var(--grey);text-decoration:none;font-size:.82rem;font-weight:600;transition:color .25s}.nav-mid a:hover{color:var(--black)}
+.nav-end{display:flex;align-items:center;gap:.6rem}
+.lang{display:flex;border:1.5px solid var(--faint);border-radius:100px;overflow:hidden}
+.lang button{padding:.25rem .6rem;font-size:.68rem;font-weight:700;border:none;background:none;color:var(--light);cursor:pointer;font-family:var(--sans);transition:all .2s}
+.lang button.on{background:var(--black);color:#fff}
+.nav-cta{background:var(--red);color:#fff;padding:.55rem 1.4rem;border-radius:100px;font-size:.78rem;font-weight:700;text-decoration:none;transition:all .3s;border:none;cursor:pointer;font-family:var(--sans)}
+.nav-cta:hover{background:#c0392b;transform:translateY(-1px);box-shadow:0 4px 14px rgba(214,48,49,.25)}
+.burger{display:none;flex-direction:column;gap:4px;cursor:pointer;background:none;border:none;padding:4px}
+.burger span{display:block;width:20px;height:1.5px;background:var(--black);border-radius:2px}
+
+/* === HERO SLIDER === */
+.hero{padding:0;position:relative;overflow:hidden;background:var(--white)}
+.hero-slider{position:relative;min-height:100vh}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity .8s ease;display:flex;align-items:center;padding:10rem 2rem 5rem;pointer-events:none}
+.slide.active{opacity:1;pointer-events:auto;position:relative}
+.slide .hero-wrap{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;width:100%}
+
+/* Slide images (right side) */
+.slide-visual{border-radius:var(--rl);overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.08);border:1px solid var(--faint);position:relative;aspect-ratio:4/3}
+.slide-visual img{width:100%;height:100%;object-fit:cover;display:block}
+.slide-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(214,48,49,.05) 0%,transparent 50%)}
+
+/* Slide nav dots */
+.slider-dots{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;gap:.5rem;z-index:10}
+.slider-dot{width:32px;height:3px;border-radius:3px;background:var(--faint);border:none;cursor:pointer;transition:all .3s;padding:0}
+.slider-dot.active{background:var(--red);width:48px}
+
+/* Slide counter */
+.slider-counter{position:absolute;bottom:2.2rem;right:2rem;font-size:.72rem;font-weight:700;color:var(--light);z-index:10;font-family:var(--sans)}
+.slider-counter strong{color:var(--red);font-size:.85rem}
+
+/* Slide content animations */
+.slide.active .hook{animation:hookIn .6s .1s both}
+.slide.active h1{animation:fadeUp .7s .2s both}
+.slide.active .hero-p{animation:fadeUp .7s .35s both}
+.slide.active .audit-card{animation:fadeUp .7s .5s both}
+.slide.active .proof{animation:fadeUp .7s .65s both}
+.slide.active .slide-visual{animation:fadeUp .8s .3s both}
+
+/* Animated hook pill */
+.hook{display:inline-flex;align-items:center;gap:.5rem;border:1.5px solid var(--red);border-radius:100px;padding:.35rem .4rem .35rem 1rem;margin-bottom:2rem;animation:hookIn .6s .1s both}
+.hook-text{font-size:.72rem;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.8px}
+.hook-arrow{width:26px;height:26px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.7rem;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateX(0)}50%{transform:translateX(3px)}}
+@keyframes hookIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+.hero h1{font-family:var(--serif);font-size:clamp(2.4rem,4.5vw,3.6rem);color:var(--black);line-height:1.1;letter-spacing:-.5px;margin-bottom:1.2rem;animation:fadeUp .7s .2s both}
+.hero h1 i{font-style:italic;color:var(--red);font-family:var(--serif)}
+.hero-p{font-size:1rem;color:var(--grey);max-width:420px;margin-bottom:2rem;animation:fadeUp .7s .35s both}
+
+/* Special CTA card */
+.audit-card{background:var(--cream);border:1.5px solid var(--faint);border-radius:var(--rl);padding:1.6rem;margin-bottom:2rem;animation:fadeUp .7s .5s both;position:relative}
+.audit-card::before{content:'';position:absolute;top:-1.5px;left:40px;width:60px;height:3px;background:var(--red);border-radius:0 0 3px 3px}
+.ac-head{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}
+.ac-head h3{font-family:var(--sans);font-weight:800;font-size:.92rem;color:var(--black)}
+.ac-badge{background:var(--green);color:#fff;font-size:.58rem;font-weight:800;padding:.15rem .55rem;border-radius:100px;text-transform:uppercase;letter-spacing:.5px}
+.ac-desc{font-size:.8rem;margin-bottom:1rem;color:var(--grey)}
+.ac-form{display:flex;gap:.5rem}
+.ac-input{flex:1;padding:.7rem 1rem;border:1.5px solid var(--faint);border-radius:100px;font-size:.84rem;font-family:var(--sans);background:var(--white);outline:none;transition:border .3s;color:var(--black)}
+.ac-input:focus{border-color:var(--red)}
+.ac-input::placeholder{color:var(--light)}
+.ac-btn{background:var(--red);color:#fff;border:none;padding:.7rem 1.6rem;border-radius:100px;font-weight:700;font-size:.8rem;cursor:pointer;font-family:var(--sans);white-space:nowrap;transition:all .3s}
+.ac-btn:hover{background:#c0392b;box-shadow:0 4px 14px rgba(214,48,49,.2)}
+.ac-note{display:flex;gap:1.2rem;margin-top:.7rem;font-size:.68rem;color:var(--light);font-weight:500}
+.ac-note span::before{content:'✓ ';color:var(--green);font-weight:800}
+
+/* Social proof */
+.proof{display:flex;align-items:center;gap:1rem;animation:fadeUp .7s .65s both}
+.proof-faces{display:flex}
+.proof-faces img{width:30px;height:30px;border-radius:50%;border:2px solid var(--white);margin-left:-7px;object-fit:cover;filter:grayscale(.2)}.proof-faces img:first-child{margin-left:0}
+.proof-text{font-size:.76rem;color:var(--grey)}.proof-text strong{color:var(--black)}
+
+/* Hero right — now handled by slide-visual */
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* === LOGOS === */
+.logos{padding:2.2rem 2rem;border-top:1px solid var(--faint);border-bottom:1px solid var(--faint);display:flex;align-items:center;justify-content:center;gap:3rem;flex-wrap:wrap}
+.logos span{font-family:var(--sans);font-weight:800;font-size:.88rem;color:var(--black);opacity:.08;letter-spacing:.5px;transition:opacity .3s}.logos span:hover{opacity:.25}
+
+/* === SECTION === */
+section{padding:5rem 2rem}
+.mx{max-width:1100px;margin:0 auto}
+.tag{font-size:.66rem;text-transform:uppercase;letter-spacing:4px;font-weight:700;color:var(--red);margin-bottom:.5rem}
+.title{font-family:var(--serif);font-size:clamp(1.6rem,2.8vw,2.3rem);color:var(--black);line-height:1.15;margin-bottom:.5rem}
+.title i{font-style:italic;color:var(--red)}
+.desc{font-size:.9rem;color:var(--grey);max-width:420px}
+.ct{text-align:center}.ct .desc{margin:0 auto}
+
+/* === SERVICES === */
+.svc-s{background:var(--cream)}
+.svc-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.5rem}
+.svc{background:var(--white);border:1.5px solid var(--faint);border-radius:var(--r);overflow:hidden;transition:all .4s}
+.svc:hover{border-color:var(--red);transform:translateY(-5px);box-shadow:0 10px 30px rgba(0,0,0,.04)}
+.svc-img{height:140px;overflow:hidden;position:relative}
+.svc-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s;filter:saturate(.85)}.svc:hover .svc-img img{transform:scale(1.05);filter:saturate(1)}
+.svc-img::after{content:'';position:absolute;bottom:0;left:0;right:0;height:50%;background:linear-gradient(transparent,var(--white))}
+.svc-bd{padding:1.1rem 1.2rem}
+.svc-bd h3{font-family:var(--sans);font-weight:800;font-size:.92rem;color:var(--black);margin-bottom:.25rem}
+.svc-bd p{font-size:.78rem;line-height:1.6}
+.svc-pills{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.6rem}
+.svc-pills span{background:rgba(214,48,49,.05);color:var(--red);font-size:.6rem;font-weight:700;padding:.18rem .5rem;border-radius:100px;text-transform:uppercase;letter-spacing:.3px}
+
+/* === BENTO === */
+.ben-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.5rem}
+.ben{background:var(--cream);border:1.5px solid var(--faint);border-radius:var(--r);padding:1.4rem;transition:all .3s}
+.ben:hover{border-color:var(--red);transform:translateY(-3px)}
+.ben-ico{font-size:1.2rem;margin-bottom:.5rem}
+.ben h4{font-family:var(--sans);font-weight:800;font-size:.86rem;color:var(--black);margin-bottom:.2rem}
+.ben p{font-size:.76rem;line-height:1.6}
+
+/* === KEYWORDS === */
+.kw-s{padding:2rem 2rem;background:var(--cream);border-top:1px solid var(--faint);border-bottom:1px solid var(--faint)}
+.kw-g{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:.35rem;justify-content:center}
+.kw{background:var(--white);border:1.5px solid var(--faint);border-radius:100px;padding:.3rem .8rem;font-size:.68rem;font-weight:600;color:var(--light);transition:all .25s;cursor:default}
+.kw:hover{color:var(--red);border-color:var(--red)}.kw.geo:hover{color:var(--green);border-color:var(--green)}
+
+/* === PROCESS === */
+.proc{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:2.5rem;border:1.5px solid var(--faint);border-radius:var(--rl);overflow:hidden}
+.proc-s{padding:1.8rem 1.3rem;border-right:1.5px solid var(--faint);transition:background .3s}.proc-s:last-child{border-right:none}.proc-s:hover{background:var(--cream)}
+.proc-n{font-family:var(--serif);font-size:2.8rem;color:var(--red);opacity:.12;line-height:1;margin-bottom:.6rem}
+.proc-s h4{font-family:var(--sans);font-weight:800;font-size:.85rem;color:var(--black);margin-bottom:.2rem}
+.proc-s p{font-size:.76rem}
+
+/* === TESTIMONIALS === */
+.test-s{background:var(--cream)}
+.test-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.5rem}
+.test{background:var(--white);border:1.5px solid var(--faint);border-radius:var(--r);padding:1.4rem;transition:all .3s}
+.test:hover{border-color:var(--red);transform:translateY(-3px)}
+.test-stars{color:#f39c12;font-size:.75rem;letter-spacing:1px;margin-bottom:.5rem}
+.test .qt{font-size:.82rem;line-height:1.7;font-style:italic;margin-bottom:1rem}
+.test-a{display:flex;align-items:center;gap:.6rem}
+.test-av{width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid var(--sand)}
+.test-a strong{display:block;font-size:.78rem;color:var(--black)}.test-a span{font-size:.68rem;color:var(--light)}
+
+/* === PRICING === */
+.price-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.5rem}
+.pri{background:var(--white);border:1.5px solid var(--faint);border-radius:var(--rl);padding:2rem 1.5rem;transition:all .4s;position:relative}
+.pri.pop{border-color:var(--red)}
+.pri:hover{transform:translateY(-5px);box-shadow:0 12px 36px rgba(0,0,0,.05)}
+.pri-bar{position:absolute;top:-1.5px;left:1.5rem;right:1.5rem;height:3px;background:var(--red);border-radius:0 0 3px 3px}
+.pri-name{font-family:var(--sans);font-weight:800;font-size:.95rem;color:var(--black);margin-bottom:.1rem}
+.pri-sub{font-size:.72rem;color:var(--light);margin-bottom:1.1rem}
+.pri-price{font-family:var(--serif);font-size:2.5rem;color:var(--black);line-height:1}
+.pri-price small{font-size:.78rem;font-family:var(--sans);font-weight:400;color:var(--light)}
+.pri-eq{font-size:.68rem;color:var(--light);margin-top:.1rem;margin-bottom:1.2rem;padding-bottom:1rem;border-bottom:1px solid var(--faint)}
+.pri-f{list-style:none;margin-bottom:1.5rem}
+.pri-f li{padding:.3rem 0;font-size:.78rem;display:flex;align-items:center;gap:.4rem}
+.pri-f li::before{content:'✓';color:var(--green);font-weight:800;font-size:.7rem}
+.pri-btn{display:block;width:100%;text-align:center;padding:.7rem;border-radius:100px;text-decoration:none;font-weight:700;font-size:.8rem;transition:all .3s;font-family:var(--sans)}
+.pri-btn.o{border:1.5px solid var(--black);color:var(--black);background:none}.pri-btn.o:hover{background:var(--black);color:#fff}
+.pri-btn.f{background:var(--red);color:#fff;border:1.5px solid var(--red)}.pri-btn.f:hover{background:#c0392b}
+
+/* === CONTACT FORM === */
+.contact-s{background:var(--cream)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2.5rem;align-items:start}
+.contact-info h3{font-family:var(--serif);font-size:1.6rem;color:var(--black);line-height:1.2;margin-bottom:.8rem}
+.contact-info h3 i{font-style:italic;color:var(--red)}
+.contact-info>p{font-size:.88rem;color:var(--grey);margin-bottom:1.8rem;max-width:380px}
+.ci-item{display:flex;align-items:flex-start;gap:.8rem;margin-bottom:1.2rem}
+.ci-ico{width:36px;height:36px;border-radius:50%;background:var(--white);border:1.5px solid var(--faint);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.ci-item strong{display:block;font-size:.82rem;color:var(--black)}.ci-item span{font-size:.78rem;color:var(--grey)}
+.contact-form{background:var(--white);border:1.5px solid var(--faint);border-radius:var(--rl);padding:2rem}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem}
+.cf-field{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.8rem}
+.cf-field:last-of-type{margin-bottom:1.2rem}
+.cf-label{font-size:.72rem;font-weight:700;color:var(--charcoal);text-transform:uppercase;letter-spacing:.5px}
+.cf-input,.cf-select,.cf-textarea{padding:.7rem 1rem;border:1.5px solid var(--faint);border-radius:100px;font-size:.84rem;font-family:var(--sans);background:var(--cream);outline:none;transition:border .3s;color:var(--black);width:100%}
+.cf-textarea{border-radius:var(--r);min-height:100px;resize:vertical;line-height:1.6}
+.cf-input:focus,.cf-select:focus,.cf-textarea:focus{border-color:var(--red);background:var(--white)}
+.cf-input::placeholder,.cf-textarea::placeholder{color:var(--light)}
+.cf-select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center}
+.cf-submit{background:var(--red);color:#fff;border:none;padding:.8rem 2rem;border-radius:100px;font-weight:700;font-size:.85rem;cursor:pointer;font-family:var(--sans);transition:all .3s;width:100%}
+.cf-submit:hover{background:#c0392b;box-shadow:0 4px 14px rgba(214,48,49,.2)}
+.cf-note{text-align:center;font-size:.68rem;color:var(--light);margin-top:.8rem}
+.cta-end{margin:0 2rem 3rem;background:var(--black);border-radius:var(--rl);padding:4rem 2rem;text-align:center;position:relative;overflow:hidden}
+.cta-end::before{content:'';position:absolute;top:-40%;right:-20%;width:350px;height:350px;background:radial-gradient(circle,rgba(214,48,49,.12) 0%,transparent 60%);border-radius:50%}
+.cta-end h2{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.2rem);color:#fff;line-height:1.2;margin-bottom:.5rem;position:relative}
+.cta-end h2 i{font-style:italic;color:var(--coral)}
+.cta-end p{color:rgba(255,255,255,.5);max-width:350px;margin:0 auto 1.8rem;position:relative;font-size:.88rem}
+.cta-w{background:#fff;color:var(--red);padding:.8rem 2rem;border-radius:100px;text-decoration:none;font-weight:700;font-size:.85rem;display:inline-flex;align-items:center;gap:.4rem;transition:all .3s;position:relative}
+.cta-w:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+
+/* === FOOTER === */
+footer{border-top:1px solid var(--faint);padding:2.5rem 2rem 1.2rem}
+.ft-g{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:2rem;margin-bottom:2rem}
+.ft-b .logo{font-size:1.1rem;display:inline-block;margin-bottom:.4rem}
+.ft-b p{font-size:.78rem;line-height:1.7;max-width:230px}
+.ft-soc{display:flex;gap:.4rem;margin-top:.7rem}
+.ft-soc a{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--faint);display:flex;align-items:center;justify-content:center;color:var(--light);text-decoration:none;font-size:.65rem;font-weight:700;transition:all .3s}
+.ft-soc a:hover{background:var(--red);border-color:var(--red);color:#fff}
+.ft-c h5{font-size:.68rem;text-transform:uppercase;letter-spacing:1.5px;font-weight:800;color:var(--black);margin-bottom:.6rem}
+.ft-c ul{list-style:none}.ft-c li{margin-bottom:.35rem}.ft-c a{color:var(--light);text-decoration:none;font-size:.76rem;transition:color .25s}.ft-c a:hover{color:var(--red)}
+.ft-bot{max-width:1100px;margin:0 auto;padding-top:1rem;border-top:1px solid var(--faint);display:flex;justify-content:space-between;font-size:.68rem;color:var(--light)}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(16px);transition:all .5s cubic-bezier(.16,1,.3,1)}.rv.v{opacity:1;transform:none}
+
+/* RESPONSIVE */
+@media(max-width:1024px){.contact-grid{grid-template-columns:1fr}.slide .hero-wrap{grid-template-columns:1fr;gap:2.5rem}.slide-visual{max-width:450px;margin:0 auto}.svc-g,.test-g,.price-g{grid-template-columns:repeat(2,1fr)}.ben-g{grid-template-columns:repeat(2,1fr)}.proc{grid-template-columns:repeat(2,1fr)}.proc-s{border-bottom:1.5px solid var(--faint)}.proc-s:nth-child(2){border-right:none}.ft-g{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){header nav{padding:.8rem 1.2rem}.nav-mid{display:none}.burger{display:flex}.slide{padding:7rem 1.2rem 4rem}.svc-g,.test-g,.price-g,.ben-g,.proc{grid-template-columns:1fr}.proc-s{border-right:none}.ac-form{flex-direction:column}.ft-g{grid-template-columns:1fr;gap:1.5rem}.ft-bot{flex-direction:column;gap:.5rem;text-align:center}.slide-visual{display:none}.cta-end{margin:0 1rem 2rem;padding:3rem 1.2rem}.logos{gap:1.5rem;padding:1.5rem 1rem}.topbar{font-size:.65rem}.slider-counter{display:none}.cf-row{grid-template-columns:1fr}.contact-form{padding:1.5rem}}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar" id="topbar">
+    <span data-l="fr">🔥 <strong>Offre limitée</strong> — Audit gratuit de votre site web + réseaux sociaux</span>
+    <span data-l="en">🔥 <strong>Limited offer</strong> — Free audit of your website + social media</span>
+    <a href="#audit" data-l="fr">Réclamer →</a><a href="#audit" data-l="en">Claim →</a>
+</div>
+
+<!-- NAV -->
+<header id="hd" class="has-topbar">
+<nav>
+    <a href="#" class="logo">Roo<b>Marketing</b></a>
+    <ul class="nav-mid">
+        <li><a href="#services" data-l="fr">Services</a><a href="#services" data-l="en">Services</a></li>
+        <li><a href="#why" data-l="fr">Avantages</a><a href="#why" data-l="en">Why us</a></li>
+        <li><a href="#pricing" data-l="fr">Forfaits</a><a href="#pricing" data-l="en">Pricing</a></li>
+    </ul>
+    <div class="nav-end">
+        <div class="lang"><button class="on" data-s="fr">FR</button><button data-s="en">EN</button></div>
+        <a href="#audit" class="nav-cta" data-l="fr">Audit gratuit</a><a href="#audit" class="nav-cta" data-l="en">Free audit</a>
+        <button class="burger" onclick="document.querySelector('.nav-mid').classList.toggle('open')"><span></span><span></span><span></span></button>
+    </div>
+</nav>
+</header>
+
+<!-- HERO SLIDER -->
+<section class="hero" id="hero">
+<div class="hero-slider">
+
+    <!-- SLIDE 1 -->
+    <div class="slide active" data-slide="0">
+    <div class="hero-wrap">
+        <div class="hero-left">
+            <div class="hook">
+                <span class="hook-text" data-l="fr">Votre site perd des clients chaque jour</span>
+                <span class="hook-text" data-l="en">Your site loses customers every day</span>
+                <span class="hook-arrow">→</span>
+            </div>
+            <h1>
+                <span data-l="fr">Votre prochaine vente est déjà sur les <i>réseaux sociaux</i></span>
+                <span data-l="en">Your next sale is already on <i>social media</i></span>
+            </h1>
+            <p class="hero-p">
+                <span data-l="fr">Stratégie marketing, gestion des réseaux sociaux et publicité numérique pour les marques ambitieuses.</span>
+                <span data-l="en">Marketing strategy, social media management and digital advertising for ambitious brands.</span>
+            </p>
+            <div class="audit-card" id="audit">
+                <div class="ac-head">
+                    <h3 data-l="fr">Audit gratuit de votre présence en ligne</h3>
+                    <h3 data-l="en">Free online presence audit</h3>
+                    <span class="ac-badge" data-l="fr">Gratuit</span><span class="ac-badge" data-l="en">Free</span>
+                </div>
+                <p class="ac-desc">
+                    <span data-l="fr">Entrez votre URL — rapport personnalisé envoyé en 48h.</span>
+                    <span data-l="en">Enter your URL — personalized report sent in 48h.</span>
+                </p>
+                <form class="ac-form" onsubmit="event.preventDefault();this.querySelector('.ac-btn').textContent='✓ Envoyé!';this.querySelector('.ac-btn').style.background='#00b894'">
+                    <input class="ac-input" type="url" placeholder="https://votresite.com" data-l="fr" required>
+                    <input class="ac-input" type="url" placeholder="https://yoursite.com" data-l="en" required>
+                    <button class="ac-btn" type="submit" data-l="fr">Obtenir mon audit →</button>
+                    <button class="ac-btn" type="submit" data-l="en">Get my audit →</button>
+                </form>
+                <div class="ac-note">
+                    <span data-l="fr">Gratuit</span><span data-l="en">Free</span>
+                    <span data-l="fr">Sans engagement</span><span data-l="en">No commitment</span>
+                    <span data-l="fr">Rapport en 48h</span><span data-l="en">Report in 48h</span>
+                </div>
+            </div>
+            <div class="proof">
+                <div class="proof-faces">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&q=80" alt="">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80" alt="">
+                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=80&q=80" alt="">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80" alt="">
+                </div>
+                <div class="proof-text"><span data-l="fr"><strong>150+ marques</strong> nous font confiance</span><span data-l="en"><strong>150+ brands</strong> trust us</span></div>
+            </div>
+        </div>
+        <div class="slide-visual">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700&q=80" alt="Analytics Dashboard">
+        </div>
+    </div>
+    </div>
+
+    <!-- SLIDE 2 -->
+    <div class="slide" data-slide="1">
+    <div class="hero-wrap">
+        <div class="hero-left">
+            <div class="hook">
+                <span class="hook-text" data-l="fr">+340% d'engagement en moyenne</span>
+                <span class="hook-text" data-l="en">+340% engagement on average</span>
+                <span class="hook-arrow">→</span>
+            </div>
+            <h1>
+                <span data-l="fr">Des réseaux sociaux qui <i>engagent</i> et convertissent</span>
+                <span data-l="en">Social media that <i>engages</i> and converts</span>
+            </h1>
+            <p class="hero-p">
+                <span data-l="fr">Contenu stratégique, campagnes Meta & Google Ads, production vidéo. On gère tout, vous récoltez les résultats.</span>
+                <span data-l="en">Strategic content, Meta & Google Ads campaigns, video production. We handle everything, you reap the results.</span>
+            </p>
+            <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+                <a href="#services" class="nav-cta" style="padding:.8rem 2rem;font-size:.85rem" data-l="fr">Découvrir nos services →</a>
+                <a href="#services" class="nav-cta" style="padding:.8rem 2rem;font-size:.85rem" data-l="en">Discover our services →</a>
+            </div>
+            <div class="proof" style="margin-top:2rem">
+                <div class="proof-faces">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&q=80" alt="">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80" alt="">
+                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=80&q=80" alt="">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80" alt="">
+                </div>
+                <div class="proof-text"><span data-l="fr"><strong>150+ marques</strong> nous font confiance</span><span data-l="en"><strong>150+ brands</strong> trust us</span></div>
+            </div>
+        </div>
+        <div class="slide-visual">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=700&q=80" alt="Team Strategy">
+        </div>
+    </div>
+    </div>
+
+    <!-- SLIDE 3 -->
+    <div class="slide" data-slide="2">
+    <div class="hero-wrap">
+        <div class="hero-left">
+            <div class="hook">
+                <span class="hook-text" data-l="fr">Montréal · Toronto · Paris · NYC</span>
+                <span class="hook-text" data-l="en">Montreal · Toronto · Paris · NYC</span>
+                <span class="hook-arrow">→</span>
+            </div>
+            <h1>
+                <span data-l="fr">Une agence sans frontières pour des marques <i>ambitieuses</i></span>
+                <span data-l="en">A borderless agency for <i>ambitious</i> brands</span>
+            </h1>
+            <p class="hero-p">
+                <span data-l="fr">Bilingue natif FR/EN. Conforme LCAP, RGPD, CCPA. Votre croissance n'a pas de limites géographiques.</span>
+                <span data-l="en">Native FR/EN bilingual. CASL, GDPR, CCPA compliant. Your growth has no geographic limits.</span>
+            </p>
+            <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+                <a href="#pricing" class="nav-cta" style="padding:.8rem 2rem;font-size:.85rem" data-l="fr">Voir les forfaits →</a>
+                <a href="#pricing" class="nav-cta" style="padding:.8rem 2rem;font-size:.85rem" data-l="en">View pricing →</a>
+            </div>
+            <div class="proof" style="margin-top:2rem">
+                <div class="proof-faces">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&q=80" alt="">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80" alt="">
+                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=80&q=80" alt="">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80" alt="">
+                </div>
+                <div class="proof-text"><span data-l="fr"><strong>150+ marques</strong> nous font confiance</span><span data-l="en"><strong>150+ brands</strong> trust us</span></div>
+            </div>
+        </div>
+        <div class="slide-visual">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=700&q=80" alt="Global Team Collaboration">
+        </div>
+    </div>
+    </div>
+
+    <!-- Slider controls -->
+    <div class="slider-dots">
+        <button class="slider-dot active" data-go="0"></button>
+        <button class="slider-dot" data-go="1"></button>
+        <button class="slider-dot" data-go="2"></button>
+    </div>
+    <div class="slider-counter"><strong>01</strong> / 03</div>
+</div>
+</section>
+
+<!-- LOGOS -->
+<div class="logos"><span>DESJARDINS</span><span>BOMBARDIER</span><span>SAQ</span><span>COUCHE-TARD</span><span>VIDÉOTRON</span><span>RONA</span><span>BRP</span></div>
+
+<!-- SERVICES -->
+<section class="svc-s" id="services">
+<div class="mx">
+    <div class="ct rv"><div class="tag">Services</div>
+    <h2 class="title"><span data-l="fr">Tout pour votre croissance <i>numérique</i></span><span data-l="en">Everything for your <i>digital</i> growth</span></h2></div>
+    <div class="svc-g">
+        <div class="svc rv"><div class="svc-img"><img src="https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=500&q=80" alt="Social"></div><div class="svc-bd"><h3 data-l="fr">Médias sociaux</h3><h3 data-l="en">Social media</h3><p data-l="fr">Contenu, communauté, calendrier éditorial.</p><p data-l="en">Content, community, editorial calendar.</p><div class="svc-pills"><span>Community</span><span>Content</span></div></div></div>
+        <div class="svc rv"><div class="svc-img"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&q=80" alt="Strategy"></div><div class="svc-bd"><h3 data-l="fr">Stratégie & branding</h3><h3 data-l="en">Strategy & branding</h3><p data-l="fr">Audit, positionnement, KPIs sur mesure.</p><p data-l="en">Audit, positioning, custom KPIs.</p><div class="svc-pills"><span>Branding</span><span>Strategy</span></div></div></div>
+        <div class="svc rv"><div class="svc-img"><img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=500&q=80" alt="Ads"></div><div class="svc-bd"><h3 data-l="fr">Publicité numérique</h3><h3 data-l="en">Digital advertising</h3><p data-l="fr">Meta, Google, TikTok Ads. ROAS optimisé.</p><p data-l="en">Meta, Google, TikTok Ads. Optimized ROAS.</p><div class="svc-pills"><span>Google Ads</span><span>Meta Ads</span></div></div></div>
+        <div class="svc rv"><div class="svc-img"><img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?w=500&q=80" alt="Video"></div><div class="svc-bd"><h3 data-l="fr">Production contenu</h3><h3 data-l="en">Content production</h3><p data-l="fr">Photo, vidéo, Reels, Stories.</p><p data-l="en">Photo, video, Reels, Stories.</p><div class="svc-pills"><span>Video</span><span>Reels</span><span>UGC</span></div></div></div>
+        <div class="svc rv"><div class="svc-img"><img src="https://images.unsplash.com/photo-1562577309-2592ab84b1ec?w=500&q=80" alt="SEO"></div><div class="svc-bd"><h3>SEO</h3><p data-l="fr">Google Business, SEO local & international.</p><p data-l="en">Google Business, local & international SEO.</p><div class="svc-pills"><span>SEO local</span><span>SEO tech</span></div></div></div>
+        <div class="svc rv"><div class="svc-img"><img src="https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=500&q=80" alt="Email"></div><div class="svc-bd"><h3>Email marketing</h3><p data-l="fr">Infolettres, automations. LCAP & RGPD.</p><p data-l="en">Newsletters, automations. CASL & GDPR.</p><div class="svc-pills"><span>Automation</span><span>GDPR</span></div></div></div>
+    </div>
+</div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+<div class="mx">
+    <div class="ct rv"><div class="tag" data-l="fr">Avantages</div><div class="tag" data-l="en">Why us</div>
+    <h2 class="title"><span data-l="fr">Pourquoi <i>RooMarketing</i></span><span data-l="en">Why <i>RooMarketing</i></span></h2></div>
+    <div class="ben-g">
+        <div class="ben rv"><div class="ben-ico">📈</div><h4 data-l="fr">Résultats mesurables</h4><h4 data-l="en">Measurable results</h4><p data-l="fr">KPIs clairs, rapports transparents, ROAS temps réel.</p><p data-l="en">Clear KPIs, transparent reports, real-time ROAS.</p></div>
+        <div class="ben rv"><div class="ben-ico">🌍</div><h4 data-l="fr">Portée internationale</h4><h4 data-l="en">Global reach</h4><p data-l="fr">Montréal · Toronto · Paris · NYC.</p><p data-l="en">Montreal · Toronto · Paris · NYC.</p></div>
+        <div class="ben rv"><div class="ben-ico">⚡</div><h4 data-l="fr">IA + humain</h4><h4 data-l="en">AI + human</h4><p data-l="fr">Outils IA + stratèges expérimentés.</p><p data-l="en">AI tools + experienced strategists.</p></div>
+        <div class="ben rv"><div class="ben-ico">🤝</div><h4 data-l="fr">Sans engagement</h4><h4 data-l="en">No lock-in</h4><p data-l="fr">Pas de contrat annuel obligatoire.</p><p data-l="en">No mandatory annual contract.</p></div>
+        <div class="ben rv"><div class="ben-ico">🔒</div><h4 data-l="fr">Conformité</h4><h4 data-l="en">Compliance</h4><p>Loi 25 · LCAP · RGPD · CCPA</p></div>
+        <div class="ben rv"><div class="ben-ico">💬</div><h4 data-l="fr">Réponse &lt;4h</h4><h4 data-l="en">Response &lt;4h</h4><p data-l="fr">Gestionnaire dédié unique.</p><p data-l="en">Single dedicated manager.</p></div>
+    </div>
+</div>
+</section>
+
+
+
+<!-- PROCESS -->
+<section>
+<div class="mx">
+    <div class="ct rv"><div class="tag" data-l="fr">Processus</div><div class="tag" data-l="en">Process</div>
+    <h2 class="title"><span data-l="fr">4 étapes. Des <i>résultats.</i></span><span data-l="en">4 steps. Real <i>results.</i></span></h2></div>
+    <div class="proc rv">
+        <div class="proc-s"><div class="proc-n">01</div><h4 data-l="fr">Découverte</h4><h4 data-l="en">Discovery</h4><p data-l="fr">Appel 30 min.</p><p data-l="en">30-min call.</p></div>
+        <div class="proc-s"><div class="proc-n">02</div><h4 data-l="fr">Stratégie</h4><h4 data-l="en">Strategy</h4><p data-l="fr">Plan & KPIs.</p><p data-l="en">Plan & KPIs.</p></div>
+        <div class="proc-s"><div class="proc-n">03</div><h4 data-l="fr">Exécution</h4><h4 data-l="en">Execution</h4><p data-l="fr">Contenu & campagnes.</p><p data-l="en">Content & campaigns.</p></div>
+        <div class="proc-s"><div class="proc-n">04</div><h4 data-l="fr">Optimisation</h4><h4 data-l="en">Optimization</h4><p data-l="fr">Tests & itérations.</p><p data-l="en">Tests & iterations.</p></div>
+    </div>
+</div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="test-s">
+<div class="mx">
+    <div class="ct rv"><div class="tag" data-l="fr">Témoignages</div><div class="tag" data-l="en">Testimonials</div>
+    <h2 class="title"><span data-l="fr">Résultats qui <i>parlent</i></span><span data-l="en">Results that <i>speak</i></span></h2></div>
+    <div class="test-g">
+        <div class="test rv"><div class="test-stars">★★★★★</div><p class="qt" data-l="fr">« Engagement triplé, ventes +45% en 6 mois. »</p><p class="qt" data-l="en">"Engagement tripled, sales +45% in 6 months."</p><div class="test-a"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&q=80" class="test-av" alt=""><div><strong>Marie L.</strong><span>E-commerce — Montréal</span></div></div></div>
+        <div class="test rv"><div class="test-stars">★★★★★</div><p class="qt" data-l="fr">« ROAS de 1.8 à 5.2 en trois mois. »</p><p class="qt" data-l="en">"ROAS from 1.8 to 5.2 in three months."</p><div class="test-a"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80" class="test-av" alt=""><div><strong>Thomas R.</strong><span>SaaS — Toronto</span></div></div></div>
+        <div class="test rv"><div class="test-stars">★★★★★</div><p class="qt" data-l="fr">« Notoriété LinkedIn explosée. »</p><p class="qt" data-l="en">"LinkedIn awareness skyrocketed."</p><div class="test-a"><img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=80&q=80" class="test-av" alt=""><div><strong>Sophie G.</strong><span>Consulting — Paris</span></div></div></div>
+    </div>
+</div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+<div class="mx">
+    <div class="ct rv"><div class="tag" data-l="fr">Forfaits</div><div class="tag" data-l="en">Pricing</div>
+    <h2 class="title"><span data-l="fr">Transparent. <i>Simple.</i></span><span data-l="en">Transparent. <i>Simple.</i></span></h2>
+    <p class="desc" data-l="fr">CAD · Sans engagement · Budget pub en sus.</p><p class="desc" data-l="en">CAD · No lock-in · Ad spend extra.</p></div>
+    <div class="price-g">
+        <div class="pri rv">
+            <div class="pri-name" data-l="fr">Essentiel</div><div class="pri-name" data-l="en">Starter</div>
+            <div class="pri-sub" data-l="fr">PME qui démarrent</div><div class="pri-sub" data-l="en">SMBs getting started</div>
+            <div class="pri-price">$1 500<small>/mo</small></div><div class="pri-eq">≈ 1 100 €</div>
+            <ul class="pri-f"><li data-l="fr">2 plateformes</li><li data-l="en">2 platforms</li><li data-l="fr">12 publications/mois</li><li data-l="en">12 posts/month</li><li data-l="fr">Calendrier éditorial</li><li data-l="en">Editorial calendar</li><li data-l="fr">Rapport mensuel</li><li data-l="en">Monthly report</li><li data-l="fr">1 appel/mois</li><li data-l="en">1 call/month</li></ul>
+            <a href="#audit" class="pri-btn o" data-l="fr">Commencer →</a><a href="#audit" class="pri-btn o" data-l="en">Get started →</a>
+        </div>
+        <div class="pri pop rv">
+            <div class="pri-bar"></div>
+            <div class="pri-name" data-l="fr">Croissance ⚡</div><div class="pri-name" data-l="en">Growth ⚡</div>
+            <div class="pri-sub" data-l="fr">Marques en scaling</div><div class="pri-sub" data-l="en">Brands scaling up</div>
+            <div class="pri-price">$3 000<small>/mo</small></div><div class="pri-eq">≈ 2 200 €</div>
+            <ul class="pri-f"><li data-l="fr">4 plateformes + Reels</li><li data-l="en">4 platforms + Reels</li><li data-l="fr">20 publications/mois</li><li data-l="en">20 posts/month</li><li data-l="fr">Meta Ads</li><li data-l="en">Meta Ads</li><li data-l="fr">Photo & vidéo</li><li data-l="en">Photo & video</li><li data-l="fr">SEO & Google Business</li><li data-l="en">SEO & Google Business</li><li data-l="fr">Rapports bi-mensuels</li><li data-l="en">Bi-weekly reports</li></ul>
+            <a href="#audit" class="pri-btn f" data-l="fr">Choisir →</a><a href="#audit" class="pri-btn f" data-l="en">Choose →</a>
+        </div>
+        <div class="pri rv">
+            <div class="pri-name">Scale</div>
+            <div class="pri-sub" data-l="fr">Leaders internationaux</div><div class="pri-sub" data-l="en">International leaders</div>
+            <div class="pri-price">$5 500<small>/mo</small></div><div class="pri-eq">≈ 4 000 €</div>
+            <ul class="pri-f"><li data-l="fr">Plateformes illimitées</li><li data-l="en">Unlimited platforms</li><li data-l="fr">30+ publications + vidéo</li><li data-l="en">30+ posts + video</li><li>Meta + Google + TikTok Ads</li><li data-l="fr">Marketing d'influence</li><li data-l="en">Influencer marketing</li><li data-l="fr">Rapports hebdomadaires</li><li data-l="en">Weekly reports</li></ul>
+            <a href="#audit" class="pri-btn o" data-l="fr">Contacter →</a><a href="#audit" class="pri-btn o" data-l="en">Contact →</a>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-s" id="contact">
+<div class="mx">
+    <div class="ct rv"><div class="tag">Contact</div>
+    <h2 class="title"><span data-l="fr">Parlons de votre <i>projet</i></span><span data-l="en">Let's talk about your <i>project</i></span></h2></div>
+    <div class="contact-grid">
+        <div class="contact-info rv">
+            <h3><span data-l="fr">Prêt à convertir l'attention en <i>revenus</i>?</span><span data-l="en">Ready to turn attention into <i>revenue</i>?</span></h3>
+            <p data-l="fr">Remplissez le formulaire et recevez une proposition personnalisée en 48h. Zéro engagement.</p>
+            <p data-l="en">Fill out the form and receive a custom proposal in 48h. Zero commitment.</p>
+            <div class="ci-item"><div class="ci-ico">📧</div><div><strong>Email</strong><span>info@roomarketing.ca</span></div></div>
+            <div class="ci-item"><div class="ci-ico">📞</div><div><strong data-l="fr">Téléphone</strong><strong data-l="en">Phone</strong><span>+1 (514) 555-1234</span></div></div>
+            <div class="ci-item"><div class="ci-ico">📍</div><div><strong data-l="fr">Bureaux</strong><strong data-l="en">Offices</strong><span>Montréal · Toronto · Paris</span></div></div>
+            <div class="ci-item"><div class="ci-ico">🕐</div><div><strong data-l="fr">Disponibilité</strong><strong data-l="en">Availability</strong><span data-l="fr">Lun–Ven · 9h–18h EST</span><span data-l="en">Mon–Fri · 9am–6pm EST</span></div></div>
+        </div>
+        <form class="contact-form rv" onsubmit="event.preventDefault();this.querySelector('.cf-submit').textContent='✓ Envoyé!';this.querySelector('.cf-submit').style.background='#00b894'">
+            <div class="cf-row">
+                <div class="cf-field"><label class="cf-label" data-l="fr">Prénom</label><label class="cf-label" data-l="en">First name</label><input class="cf-input" type="text" placeholder="Jean" required></div>
+                <div class="cf-field"><label class="cf-label" data-l="fr">Nom</label><label class="cf-label" data-l="en">Last name</label><input class="cf-input" type="text" placeholder="Tremblay" required></div>
+            </div>
+            <div class="cf-row">
+                <div class="cf-field"><label class="cf-label">Email</label><input class="cf-input" type="email" placeholder="jean@entreprise.com" required></div>
+                <div class="cf-field"><label class="cf-label" data-l="fr">Téléphone</label><label class="cf-label" data-l="en">Phone</label><input class="cf-input" type="tel" placeholder="+1 (514) 555-0000"></div>
+            </div>
+            <div class="cf-field">
+                <label class="cf-label" data-l="fr">Service qui vous intéresse</label><label class="cf-label" data-l="en">Service of interest</label>
+                <select class="cf-select">
+                    <option value="" data-l="fr">Sélectionnez un service</option>
+                    <option value="" data-l="en">Select a service</option>
+                    <option data-l="fr">Gestion des médias sociaux</option><option data-l="en">Social media management</option>
+                    <option data-l="fr">Publicité numérique (Ads)</option><option data-l="en">Digital advertising (Ads)</option>
+                    <option data-l="fr">Stratégie & branding</option><option data-l="en">Strategy & branding</option>
+                    <option data-l="fr">Production de contenu</option><option data-l="en">Content production</option>
+                    <option>SEO</option>
+                    <option>Email marketing</option>
+                    <option data-l="fr">Plusieurs services / Sur mesure</option><option data-l="en">Multiple services / Custom</option>
+                </select>
+            </div>
+            <div class="cf-field">
+                <label class="cf-label" data-l="fr">Votre site web (optionnel)</label><label class="cf-label" data-l="en">Your website (optional)</label>
+                <input class="cf-input" type="url" placeholder="https://votresite.com">
+            </div>
+            <div class="cf-field">
+                <label class="cf-label">Message</label>
+                <textarea class="cf-textarea" rows="4" placeholder="" data-l="fr"></textarea>
+                <textarea class="cf-textarea" rows="4" placeholder="" data-l="en"></textarea>
+            </div>
+            <button class="cf-submit" type="submit" data-l="fr">Envoyer ma demande →</button>
+            <button class="cf-submit" type="submit" data-l="en">Send my request →</button>
+            <p class="cf-note" data-l="fr">🔒 Vos données restent confidentielles. Réponse en moins de 48h.</p>
+            <p class="cf-note" data-l="en">🔒 Your data stays confidential. Response within 48h.</p>
+        </form>
+    </div>
+</div>
+</section>
+
+<!-- CTA -->
+<div class="cta-end">
+    <h2 class="rv"><span data-l="fr">Prêt à convertir l'attention en <i>revenus</i>?</span><span data-l="en">Ready to convert attention into <i>revenue</i>?</span></h2>
+    <p class="rv"><span data-l="fr">Appel stratégique gratuit · 30 min · Zéro engagement.</span><span data-l="en">Free strategy call · 30 min · Zero commitment.</span></p>
+    <a href="mailto:info@roomarketing.ca" class="cta-w rv" data-l="fr">Réserver mon appel →</a><a href="mailto:info@roomarketing.ca" class="cta-w rv" data-l="en">Book my call →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+<div class="ft-g">
+    <div class="ft-b"><a href="#" class="logo">Roo<b>Marketing</b></a><p data-l="fr">Stratégie, réseaux sociaux et performance pour marques ambitieuses.</p><p data-l="en">Strategy, social media and performance for ambitious brands.</p><div class="ft-soc"><a href="#">Fb</a><a href="#">Ig</a><a href="#">Li</a><a href="#">Tk</a></div></div>
+    <div class="ft-c"><h5>Services</h5><ul><li><a href="#" data-l="fr">Médias sociaux</a><a href="#" data-l="en">Social media</a></li><li><a href="#" data-l="fr">Publicité</a><a href="#" data-l="en">Advertising</a></li><li><a href="#">SEO</a></li><li><a href="#">Email</a></li></ul></div>
+    <div class="ft-c"><h5 data-l="fr">Ressources</h5><h5 data-l="en">Resources</h5><ul><li><a href="#" data-l="fr">Blogue</a><a href="#" data-l="en">Blog</a></li><li><a href="#" data-l="fr">Études de cas</a><a href="#" data-l="en">Case studies</a></li><li><a href="#">FAQ</a></li></ul></div>
+    <div class="ft-c"><h5>Contact</h5><ul><li><a href="mailto:info@roomarketing.ca">info@roomarketing.ca</a></li><li><a href="tel:+15145551234">+1 (514) 555-1234</a></li><li><a href="#">Montréal · Toronto · Paris</a></li></ul></div>
+</div>
+<div class="ft-bot"><span>© 2026 RooMarketing inc.</span><span data-l="fr">Confidentialité · Conditions</span><span data-l="en">Privacy · Terms</span></div>
+</footer>
+
+<script>
+// Scroll
+const hd=document.getElementById('hd'),tb=document.getElementById('topbar');
+window.addEventListener('scroll',()=>{
+    const s=window.scrollY>50;
+    hd.classList.toggle('scrolled',s);
+    if(s){tb.style.transform='translateY(-100%)';tb.style.transition='transform .3s';hd.classList.remove('has-topbar')}
+    else{tb.style.transform='';hd.classList.add('has-topbar')}
+});
+// Reveal
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');obs.unobserve(x.target)}}),{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+// Smooth
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})}));
+// 3D tilt
+document.querySelectorAll('.svc,.pri').forEach(c=>{
+    c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(800px) rotateY(${x*4}deg) rotateX(${-y*4}deg) translateY(-5px)`});
+    c.addEventListener('mouseleave',()=>c.style.transform='');
+});
+// Lang
+function setL(l){document.documentElement.lang=l;document.querySelectorAll('[data-l]').forEach(e=>e.style.display=e.dataset.l===l?'':'none');document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.s===l))}
+document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>setL(b.dataset.s)));
+setL('fr');
+
+// Hero Slider
+let cur=0;const slides=document.querySelectorAll('.slide'),dots=document.querySelectorAll('.slider-dot'),counter=document.querySelector('.slider-counter');
+function goSlide(n){
+    slides[cur].classList.remove('active');dots[cur].classList.remove('active');
+    cur=n;
+    slides[cur].classList.add('active');dots[cur].classList.add('active');
+    counter.innerHTML='<strong>0'+(cur+1)+'</strong> / 0'+slides.length;
+    setL(document.documentElement.lang);
+}
+dots.forEach(d=>d.addEventListener('click',()=>goSlide(+d.dataset.go)));
+let autoSlide=setInterval(()=>goSlide((cur+1)%slides.length),6000);
+document.querySelector('.hero-slider').addEventListener('mouseenter',()=>clearInterval(autoSlide));
+document.querySelector('.hero-slider').addEventListener('mouseleave',()=>{autoSlide=setInterval(()=>goSlide((cur+1)%slides.length),6000)});
+</script>
+</body>
+</html>
